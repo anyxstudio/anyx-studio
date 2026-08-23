@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anyx Studio — Branding for Local Shops | Jaipur</title>
+<meta name="description" content="Affordable, print-ready branding for local shops. UPI standees, menu boards, business cards, signage — designed and delivered in 1-2 days.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1626;
+    --navy-2:#152238;
+    --navy-3:#1E304C;
+    --gold:#D4A94A;
+    --gold-soft:#E8CD8A;
+    --paper:#F7F5EF;
+    --paper-card:#FFFFFF;
+    --ink:#1B2130;
+    --ink-soft:#5B6270;
+    --line:#E3DFD3;
+    --kraft:#D9CDAE;
+    --kraft-dark:#B9A97F;
+    --maxw:1200px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  ::selection{background:var(--gold);color:var(--navy);}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:20px;height:1px;background:var(--gold);display:inline-block;}
+  .eyebrow.dark{color:#8A6F2E;}
+  .eyebrow.dark::before{background:#8A6F2E;}
+
+  h1,h2,h3{font-family:'Playfair Display',serif;font-weight:600;letter-spacing:-0.01em;}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 28px;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    border-radius:3px;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+    cursor:pointer;
+    border:1px solid transparent;
+  }
+  .btn-primary{background:var(--gold);color:var(--navy);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(212,169,74,0.35);}
+  .btn-ghost{border-color:rgba(255,255,255,0.35);color:#fff;}
+  .btn-ghost:hover{background:rgba(255,255,255,0.08);}
+  .btn-dark{border-color:var(--navy);color:var(--navy);}
+  .btn-dark:hover{background:var(--navy);color:#fff;}
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(11,22,38,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;}
+  .brand{display:flex;align-items:center;gap:10px;color:#fff;}
+  .brand svg{width:28px;height:28px;}
+  .brand span{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;letter-spacing:.01em;}
+  .navlinks{display:flex;align-items:center;gap:34px;}
+  .navlinks a{
+    font-size:13.5px;color:rgba(255,255,255,0.78);font-weight:500;
+    position:relative;padding-bottom:3px;
+  }
+  .navlinks a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .3s ease;}
+  .navlinks a:hover::after{width:100%;}
+  .navlinks a:hover{color:#fff;}
+  @media(max-width:860px){ .navlinks a.hide-mobile{display:none;} }
+
+  /* HERO */
+  header.hero{
+    background:
+      radial-gradient(ellipse at 80% 0%, rgba(212,169,74,0.14), transparent 55%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
+    color:#fff;
+    padding:150px 0 100px;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:linear-gradient(180deg, black, transparent 70%);
+    pointer-events:none;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:60px;align-items:center;position:relative;z-index:2;}
+  .hero h1{
+    font-size:clamp(38px,5vw,62px);
+    line-height:1.08;
+    max-width:12ch;
+  }
+  .hero h1 em{font-style:italic;color:var(--gold);}
+  .hero .sub{
+    margin-top:24px;max-width:46ch;font-size:17px;color:rgba(255,255,255,0.72);
+  }
+  .hero .cta-row{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap;}
+  .hero .meta-row{display:flex;gap:36px;margin-top:52px;flex-wrap:wrap;}
+  .hero .meta-row div{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:.06em;}
+  .hero .meta-row div span{display:block;font-family:'Inter',sans-serif;font-size:14.5px;color:#fff;margin-top:6px;text-transform:none;letter-spacing:0;}
+
+  /* floating mock card in hero */
+  .mock-card{
+    background:linear-gradient(160deg,#101d33,#0B1626);
+    border:1px solid rgba(212,169,74,0.35);
+    border-radius:10px;
+    padding:30px 26px;
+    width:260px;
+    box-shadow:0 30px 70px rgba(0,0,0,0.45);
+    transform:rotate(3deg);
+    position:relative;
+  }
+  .mock-card::before{
+    content:"";position:absolute;top:14px;right:14px;
+    width:8px;height:8px;border-radius:50%;background:var(--gold);
+  }
+  .mock-card .shop{font-family:'Playfair Display',serif;font-size:22px;color:#fff;}
+  .mock-card .tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-soft);margin-top:4px;}
+  .mock-qr{
+    margin-top:22px;width:100%;aspect-ratio:1;
+    background:
+      repeating-linear-gradient(0deg, #fff 0 6px, transparent 6px 12px),
+      repeating-linear-gradient(90deg, #fff 0 6px, transparent 6px 12px);
+    background-color:#fff;
+    background-blend-mode:multiply;
+    border-radius:6px;
+    opacity:0.95;
+  }
+  .mock-card .scan{margin-top:14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+  .hero-visual{display:flex;justify-content:center;position:relative;}
+  .hero-visual .mock-card.behind{
+    position:absolute;top:26px;left:calc(50% - 100px);
+    transform:rotate(-8deg);
+    width:200px;padding:22px 18px;
+    opacity:0.55;
+    z-index:0;
+  }
+  .hero-visual .mock-card.front{z-index:1;}
+
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{margin-top:50px;}
+  }
+
+  /* TRUST STRIP */
+  .trust{background:var(--navy-3);color:#fff;}
+  .trust .wrap{
+    display:flex;justify-content:space-between;padding:28px 32px;flex-wrap:wrap;gap:20px;
+  }
+  .trust .item{display:flex;align-items:center;gap:12px;font-size:14px;color:rgba(255,255,255,0.85);}
+  .trust .item svg{width:20px;height:20px;flex-shrink:0;color:var(--gold);}
+
+  /* SECTION HEAD */
+  .section-head{padding:110px 0 44px;max-width:640px;}
+  .section-head.center{max-width:640px;margin:0 auto;text-align:center;}
+  .section-head h2{font-size:clamp(30px,4vw,44px);margin-top:16px;}
+
+  /* SERVICES */
+  .services-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-bottom:60px;
+  }
+  .service{
+    background:var(--paper-card);
+    padding:36px 30px;
+    transition:background .3s ease;
+  }
+  .service:hover{background:#FDFBF6;}
+  .service svg{width:26px;height:26px;color:var(--navy);margin-bottom:18px;}
+  .service h3{font-family:'Inter',sans-serif;font-size:16.5px;font-weight:600;color:var(--ink);}
+  .service p{font-size:13.5px;color:var(--ink-soft);margin-top:8px;line-height:1.5;}
+  @media(max-width:820px){.services-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.services-grid{grid-template-columns:1fr;}}
+
+  /* INDUSTRIES / WORK */
+  #work{background:var(--navy);color:#fff;padding-bottom:110px;}
+  #work .section-head h2{color:#fff;}
+  #work .section-head p{color:rgba(255,255,255,0.65);margin-top:14px;font-size:15.5px;}
+  .industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .industry-card{
+    display:block;
+    border-radius:8px;overflow:hidden;
+    border:1px solid rgba(255,255,255,0.08);
+    transition:transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  .industry-card:hover{transform:translateY(-6px);}
+  .industry-card .head{padding:26px 24px 60px;position:relative;overflow:hidden;}
+  .industry-card .head svg{width:24px;height:24px;color:rgba(255,255,255,0.9);margin-bottom:14px;}
+  .industry-card .head .name{font-family:'Playfair Display',serif;font-size:21px;color:#fff;}
+  .industry-card .head .cat{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-top:4px;}
+  .industry-card .foot{
+    background:rgba(0,0,0,0.22);
+    padding:14px 24px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+    color:rgba(255,255,255,0.55);
+    display:flex;justify-content:space-between;
+  }
+  .ic-1{background:linear-gradient(135deg,#1a1a1a,#3a3020);}
+  .ic-2{background:linear-gradient(135deg,#5c1414,#7a2a1e);}
+  .ic-3{background:linear-gradient(135deg,#1f3d20,#2f5a2e);}
+  .ic-4{background:linear-gradient(135deg,#0f3b3d,#1a5a5c);}
+  .ic-5{background:linear-gradient(135deg,#3d1f3a,#5c2a52);}
+  .ic-6{background:linear-gradient(135deg,#12233d,#1c3a5e);}
+  @media(max-width:900px){.industry-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.industry-grid{grid-template-columns:1fr;}}
+
+  /* BEFORE/AFTER — signature element */
+  #transform{padding:110px 0;}
+  .transform-shell{
+    display:grid;grid-template-columns:0.9fr 1.1fr;gap:64px;align-items:center;
+  }
+  .toggle{
+    display:inline-flex;background:var(--line);border-radius:30px;padding:4px;position:relative;margin-top:6px;
+  }
+  .toggle button{
+    border:none;background:none;
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    padding:10px 24px;border-radius:26px;cursor:pointer;color:var(--ink-soft);
+    position:relative;z-index:2;transition:color .3s ease;
+  }
+  .toggle button.active{color:var(--navy);font-weight:600;}
+  .toggle .thumb{
+    position:absolute;top:4px;left:4px;height:calc(100% - 8px);width:calc(50% - 4px);
+    background:var(--gold);border-radius:26px;
+    transition:transform .35s cubic-bezier(.22,1,.36,1);
+    z-index:1;
+  }
+  .toggle.after .thumb{transform:translateX(100%);}
+
+  .transform-copy p{color:var(--ink-soft);font-size:15.5px;margin-top:18px;max-width:42ch;}
+  .transform-copy h2{font-size:clamp(28px,3.6vw,38px);margin-top:14px;}
+
+  .transform-stage{
+    position:relative;
+    border-radius:10px;
+    overflow:hidden;
+    aspect-ratio:5/4;
+    box-shadow:0 30px 60px rgba(20,20,10,0.15);
+  }
+  .panel{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:50px;
+    opacity:0;transform:scale(0.98);
+    transition:opacity .4s ease, transform .4s ease;
+    pointer-events:none;
+  }
+  .panel.show{opacity:1;transform:scale(1);pointer-events:auto;}
+
+  .panel.before{
+    background:
+      linear-gradient(rgba(0,0,0,0.03),rgba(0,0,0,0.03)),
+      var(--kraft);
+    background-image:
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.02) 0 2px, transparent 2px 4px);
+  }
+  .panel.before .line{
+    font-family:'Caveat',cursive;font-weight:600;
+    font-size:30px;color:#3a3222;
+    border-bottom:1.5px dashed rgba(58,50,34,0.35);
+    padding:8px 0;
+  }
+  .panel.before .stamp{
+    margin-top:20px;font-family:'Caveat',cursive;font-size:20px;color:#7a6a3f;
+    transform:rotate(-3deg);
+  }
+
+  .panel.after{
+    background:linear-gradient(155deg,#101d33,#0B1626);
+  }
+  .panel.after .shop{font-family:'Playfair Display',serif;font-size:30px;color:#fff;}
+  .panel.after .cat{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-soft);margin-top:6px;}
+  .panel.after .list{margin-top:22px;display:flex;flex-direction:column;gap:10px;}
+  .panel.after .row{display:flex;justify-content:space-between;font-size:14.5px;color:rgba(255,255,255,0.88);border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:8px;}
+  .panel.after .row span:last-child{color:var(--gold-soft);font-family:'JetBrains Mono',monospace;font-size:13px;}
+
+  @media(max-width:860px){
+    .transform-shell{grid-template-columns:1fr;}
+    .transform-stage{aspect-ratio:4/3;}
+  }
+
+  /* HOW IT WORKS */
+  #how{background:var(--paper-card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;padding-bottom:100px;position:relative;}
+  .steps::before{
+    content:"";position:absolute;top:26px;left:16%;right:16%;height:1px;
+    background:repeating-linear-gradient(90deg, var(--line) 0 8px, transparent 8px 16px);
+    z-index:0;
+  }
+  .step{position:relative;z-index:1;}
+  .step .num{
+    width:52px;height:52px;border-radius:50%;
+    background:var(--navy);color:var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;
+    margin-bottom:22px;
+  }
+  .step h3{font-family:'Inter',sans-serif;font-size:17px;font-weight:600;}
+  .step p{color:var(--ink-soft);font-size:14px;margin-top:8px;max-width:32ch;}
+  @media(max-width:760px){.steps{grid-template-columns:1fr;}.steps::before{display:none;}}
+
+  /* PRICING */
+  .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-bottom:40px;}
+  .price-card{
+    border:1px solid var(--line);border-radius:10px;padding:38px 34px;background:var(--paper-card);
+    position:relative;
+  }
+  .price-card.premium{border-color:var(--gold);box-shadow:0 20px 50px rgba(212,169,74,0.14);}
+  .price-card .badge{
+    position:absolute;top:-13px;right:28px;background:var(--gold);color:var(--navy);
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    padding:6px 14px;border-radius:20px;font-weight:600;
+  }
+  .price-card .plan{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+  .price-card .amount{font-family:'Playfair Display',serif;font-size:40px;margin-top:10px;}
+  .price-card .amount span{font-family:'Inter',sans-serif;font-size:14px;color:var(--ink-soft);font-weight:400;}
+  .price-card ul{list-style:none;margin-top:26px;display:flex;flex-direction:column;gap:12px;}
+  .price-card li{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;color:var(--ink);}
+  .price-card li svg{width:16px;height:16px;color:var(--navy);flex-shrink:0;margin-top:3px;}
+  .price-card.premium li svg{color:var(--gold);}
+  .price-note{
+    display:flex;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;flex-wrap:wrap;
+  }
+  .price-note .cell{flex:1;min-width:180px;padding:22px 24px;border-right:1px solid var(--line);}
+  .price-note .cell:last-child{border-right:none;}
+  .price-note .cell .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);}
+  .price-note .cell .val{font-family:'Playfair Display',serif;font-size:20px;margin-top:6px;}
+  @media(max-width:760px){.pricing-grid{grid-template-columns:1fr;}}
+
+  /* WHY */
+  #why{background:var(--navy-2);color:#fff;}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 40px;padding-bottom:100px;}
+  .why-item{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
+  .why-item svg{width:18px;height:18px;color:var(--gold);flex-shrink:0;margin-top:3px;}
+  .why-item p{font-size:15px;color:rgba(255,255,255,0.85);}
+  #why .section-head h2{color:#fff;}
+  @media(max-width:700px){.why-grid{grid-template-columns:1fr;}}
+
+  /* CONTACT */
+  #contact{background:var(--gold);color:var(--navy);}
+  #contact .wrap{padding:100px 32px 80px;}
+  #contact h2{font-size:clamp(34px,6vw,64px);font-style:italic;max-width:14ch;}
+  .contact-actions{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;}
+  .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:70px;padding-top:34px;border-top:1px solid rgba(11,22,38,0.2);}
+  .contact-grid .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,22,38,0.6);}
+  .contact-grid .val{font-family:'Inter',sans-serif;font-size:16px;font-weight:600;margin-top:8px;}
+  @media(max-width:700px){.contact-grid{grid-template-columns:1fr;}}
+
+  footer{background:var(--navy);color:rgba(255,255,255,0.5);padding:26px 32px;text-align:center;font-size:12.5px;font-family:'JetBrains Mono',monospace;}
+
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+  }
+  a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none"><path d="M20 4L34 34H24L20 24L16 34H6L20 4Z" fill="#D4A94A"/></svg>
+      <span>ANYX STUDIO</span>
+    </div>
+    <div class="navlinks">
+      <a href="#services" class="hide-mobile">Services</a>
+      <a href="#work" class="hide-mobile">Work</a>
+      <a href="gallery.html" class="hide-mobile">Samples</a>
+      <a href="#pricing" class="hide-mobile">Pricing</a>
+      <a href="mailto:aalokai777@gmail.com" class="btn btn-primary" style="padding:10px 20px;">Enquire Now</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Print · Brand · Grow</span>
+        <h1>Branding that makes local shops <em>legendary.</em></h1>
+        <p class="sub">We design and print professional UPI standees, menu boards, business cards and signage for local shops — affordable, custom-made, and delivered in 1–2 days.</p>
+        <div class="cta-row">
+          <a href="mailto:aalokai777@gmail.com" class="btn btn-primary">Enquire Now</a>
+          <a href="gallery.html" class="btn btn-ghost">See Sample Gallery</a>
+        </div>
+        <div class="meta-row">
+          <div>Based in<span>Jaipur, Rajasthan</span></div>
+          <div>Delivery<span>1–2 Days</span></div>
+          <div>Enquiries<span>aalokai777@gmail.com</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="mock-card behind">
+          <div class="shop" style="font-size:17px;">Spice Garden</div>
+          <div class="tag">Restaurant</div>
+        </div>
+        <div class="mock-card front">
+          <div class="shop">Style Cuts</div>
+          <div class="tag">Barbershop</div>
+          <div class="mock-qr"></div>
+          <div class="scan">Scan &amp; Pay</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="trust">
+  <div class="wrap">
+    <div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>Affordable pricing for every shop</div>
+    <div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h13l4 4M20 12v6H3"/></svg>Fast delivery, 1–2 days</div>
+    <div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l2.5 5 5.5.8-4 4 1 5.5L12 16l-5 2.3 1-5.5-4-4 5.5-.8z"/></svg>100% custom, print-ready designs</div>
+  </div>
+</div>
+
+<main class="wrap">
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-head">
+      <span class="eyebrow dark">What we offer</span>
+      <h2>Everything your shop needs to look the part.</h2>
+    </div>
+  </section>
+</main>
+
+<div class="services-grid">
+  <div class="service">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14v3M17 20h3"/></svg>
+    <h3>UPI QR Standees</h3><p>Table-top scan-and-pay standees your customers can't miss.</p>
+  </div>
+  <div class="service">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+    <h3>Google Review Cards</h3><p>Turn walk-ins into 5-star reviews with a simple scan.</p>
+  </div>
+  <div class="service">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg>
+    <h3>Business Cards</h3><p>Clean, professional cards that represent your shop well.</p>
+  </div>
+  <div class="service">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
+    <h3>Price / Rate Boards</h3><p>Legible, branded rate lists that replace handwritten sheets.</p>
+  </div>
+  <div class="service">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/></svg>
+    <h3>Offer Posters</h3><p>Eye-catching posters for weekend deals and new stock.</p>
+  </div>
+  <div class="service">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M6 8l6-5 6 5M6 16l6 5 6-5"/></svg>
+    <h3>Table Tent Cards</h3><p>Two-sided standees for menus, feedback, and offers.</p>
+  </div>
+  <div class="service">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
+    <h3>Digital Menu QR Standees</h3><p>One scan opens your full menu — no reprints when prices change.</p>
+  </div>
+  <div class="service">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-4.5-7-11a7 7 0 0114 0c0 6.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+    <h3>Loyalty Cards</h3><p>Stamp cards that bring customers back for their next visit.</p>
+  </div>
+  <div class="service">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V9l7-6 7 6v12M9 21v-6h6v6"/></svg>
+    <h3>Shop Signage Concepts</h3><p>Redesign concepts for your storefront board and banners.</p>
+  </div>
+</div>
+
+<!-- WORK / INDUSTRIES -->
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Who we work with</span>
+      <h2>Built for the shop on your street.</h2>
+      <p>Tap any business type to open its sample gallery — banners, QR standees, menus, reels and more.</p>
+    </div>
+    <div class="industry-grid">
+      <a class="industry-card" href="gallery.html#barbershop">
+        <div class="head ic-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.5 15.5M8.5 8.5L20 20"/></svg>
+          <div class="name">Style Cuts</div><div class="cat">Barbershop</div>
+        </div>
+        <div class="foot"><span>View samples</span><span>→</span></div>
+      </a>
+      <a class="industry-card" href="gallery.html#restaurant">
+        <div class="head ic-2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3v6a3 3 0 006 0V3M9 9v12M17 3c-2 2-2 5 0 7v9"/></svg>
+          <div class="name">Spice Garden</div><div class="cat">Restaurant</div>
+        </div>
+        <div class="foot"><span>View samples</span><span>→</span></div>
+      </a>
+      <a class="industry-card" href="gallery.html#kirana">
+        <div class="head ic-3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/><path d="M2 3h3l2.6 12.4a2 2 0 002 1.6h8.4a2 2 0 002-1.6L22 7H6"/></svg>
+          <div class="name">Sharma Kirana</div><div class="cat">Grocery store</div>
+        </div>
+        <div class="foot"><span>View samples</span><span>→</span></div>
+      </a>
+      <a class="industry-card" href="gallery.html#pharmacy">
+        <div class="head ic-4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v20M2 12h20" stroke-linecap="round"/><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
+          <div class="name">Wellness</div><div class="cat">Pharmacy</div>
+        </div>
+        <div class="foot"><span>View samples</span><span>→</span></div>
+      </a>
+      <a class="industry-card" href="gallery.html#salon">
+        <div class="head ic-5">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M6 21c1-3.5 3.5-5 6-5s5 1.5 6 5"/></svg>
+          <div class="name">Glow</div><div class="cat">Beauty salon</div>
+        </div>
+        <div class="foot"><span>View samples</span><span>→</span></div>
+      </a>
+      <a class="industry-card" href="gallery.html#bookstore">
+        <div class="head ic-6">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 5c3-1.5 6-1.5 9 0v14c-3-1.5-6-1.5-9 0zM21 5c-3-1.5-6-1.5-9 0v14c3-1.5 6-1.5 9 0z"/></svg>
+          <div class="name">Readers Corner</div><div class="cat">Bookstore</div>
+        </div>
+        <div class="foot"><span>View samples</span><span>→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section id="transform" class="wrap">
+  <div class="transform-shell">
+    <div class="transform-copy">
+      <span class="eyebrow dark">The transformation</span>
+      <h2>From handwritten sheet to a design customers trust.</h2>
+      <p>Most shops we meet are still running on a taped-up paper list. We keep every price and detail exactly the same — we just make it look like a shop worth walking into.</p>
+      <div class="toggle" id="toggle">
+        <div class="thumb"></div>
+        <button class="active" data-state="before">Before</button>
+        <button data-state="after">After</button>
+      </div>
+    </div>
+    <div class="transform-stage">
+      <div class="panel before show">
+        <div class="line">Hair Cut&nbsp;&nbsp;—&nbsp;&nbsp;100</div>
+        <div class="line">Beard&nbsp;&nbsp;—&nbsp;&nbsp;80</div>
+        <div class="line">Hair Wash&nbsp;&nbsp;—&nbsp;&nbsp;70</div>
+        <div class="line">Wax&nbsp;&nbsp;—&nbsp;&nbsp;50</div>
+        <div class="stamp">— taped to the mirror since 2021</div>
+      </div>
+      <div class="panel after">
+        <div class="shop">Style Cuts</div>
+        <div class="cat">Service menu</div>
+        <div class="list">
+          <div class="row"><span>Hair Cut</span><span>₹150</span></div>
+          <div class="row"><span>Beard Trim</span><span>₹100</span></div>
+          <div class="row"><span>Hair Wash</span><span>₹80</span></div>
+          <div class="row"><span>Hair Spa</span><span>₹250</span></div>
+          <div class="row"><span>Facial</span><span>₹300</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="section-head center" style="margin:0 auto;">
+      <span class="eyebrow dark" style="justify-content:center;">How it works</span>
+      <h2>Simple. Fast. Hassle-free.</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="num">01</div>
+        <h3>We show you sample designs</h3>
+        <p>Send us your shop details — we walk you through matching samples from our gallery.</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h3>You approve, we print</h3>
+        <p>Like what you see? We finalise the full set and send it to print-ready files.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h3>We deliver and install</h3>
+        <p>Your materials arrive ready to use — standees, boards, and cards, set up on-site.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="wrap">
+  <div class="section-head">
+    <span class="eyebrow dark">Pricing</span>
+    <h2>Packages built for a small shop's budget.</h2>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="plan">Starter</div>
+      <div class="amount">₹2,499<span> onwards</span></div>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>3 print materials (any 3)</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Premium design</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Print-ready files</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>2 revisions</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Delivery in 2–3 days</li>
+      </ul>
+    </div>
+    <div class="price-card premium">
+      <div class="badge">Most popular</div>
+      <div class="plan">Premium</div>
+      <div class="amount">₹6,999<span> onwards</span></div>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>6 print materials — complete set</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Premium + unique design</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Unlimited revisions</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Delivery in 1–2 days</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Free installation support</li>
+      </ul>
+    </div>
+  </div>
+  <div class="price-note">
+    <div class="cell"><div class="lbl">Single item</div><div class="val">₹250 – ₹700</div></div>
+    <div class="cell"><div class="lbl">Full combo (4 items)</div><div class="val">₹1,200 – ₹1,800</div></div>
+    <div class="cell"><div class="lbl">Monthly plan</div><div class="val">₹300 / month</div></div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Why choose us</span>
+      <h2>No design experience needed on your end.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><p>Super fast delivery — 1 to 2 days, most orders</p></div>
+      <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><p>Affordable pricing built for every size of shop</p></div>
+      <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><p>100% custom designs, made for your shop only</p></div>
+      <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><p>No design experience needed from your side</p></div>
+      <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><p>High quality, print-ready files every time</p></div>
+      <div class="why-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><p>Friendly support and guidance, start to finish</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <span class="eyebrow dark" style="color:rgba(11,22,38,0.65);">Let's grow your business</span>
+    <h2>Order or enquire — over email.</h2>
+    <div class="contact-actions">
+      <a class="btn btn-dark" href="mailto:aalokai777@gmail.com?subject=Enquiry%20from%20Anyx%20Studio%20website">Email for Orders &amp; Enquiry</a>
+      <a class="btn" style="border:1px solid var(--navy);color:var(--navy);" href="gallery.html">Browse Sample Gallery</a>
+    </div>
+    <div class="contact-grid" style="grid-template-columns:1fr 1fr;">
+      <div><div class="lbl">Email</div><div class="val">aalokai777@gmail.com</div></div>
+      <div><div class="lbl">Location</div><div class="val">Jaipur, Rajasthan</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Anyx Studio — Print. Brand. Grow.</footer>
+
+<script>
+  const toggle = document.getElementById('toggle');
+  const buttons = toggle.querySelectorAll('button');
+  const panels = document.querySelectorAll('.panel');
+  buttons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      buttons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      toggle.classList.toggle('after', btn.dataset.state === 'after');
+      panels.forEach(p=>p.classList.toggle('show', p.classList.contains(btn.dataset.state)));
+    });
+  });
+</script>
+
+</body>
+</html>
