@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Work Gallery — Anyx Studio</title>
+<meta name="description" content="Sample designs by Anyx Studio for local shops — barbershops, restaurants, hotels, medical stores, gyms, salons, and more." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#0a0716; --bg-1:#160c2e; --bg-2:#1f1140;
+    --glass:rgba(255,255,255,0.055); --glass-border:rgba(255,255,255,0.14); --glass-border-hi:rgba(255,255,255,0.28);
+    --pink:#ff2e93; --amber:#ffb238; --cyan:#48e1ff;
+    --text-0:#f7f4ff; --text-1:#c7c0e6; --text-2:#8d84b5;
+    --radius:18px; --ease:cubic-bezier(.16,.84,.32,1);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{ margin:0; background:var(--bg-0); color:var(--text-0); font-family:'Plus Jakarta Sans', sans-serif; -webkit-font-smoothing:antialiased; }
+  h1,h2,h3{ font-family:'Bricolage Grotesque', sans-serif; font-weight:700; letter-spacing:-0.02em; line-height:1.05; margin:0; }
+  p{ color:var(--text-1); line-height:1.6; margin:0; }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+  .wrap{ max-width:1240px; margin:0 auto; padding:0 28px; }
+  .bg{ position:fixed; inset:0; z-index:0; background:radial-gradient(ellipse 120% 80% at 50% -10%, var(--bg-2), var(--bg-0) 60%); }
+  main{ position:relative; z-index:2; }
+  .glass{ background:var(--glass); border:1px solid var(--glass-border); backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%); border-radius:var(--radius); }
+
+  nav{ position:sticky; top:0; z-index:50; padding:16px 0; background:rgba(10,7,22,.7); backdrop-filter:blur(14px); border-bottom:1px solid var(--glass-border); }
+  nav .inner{ display:flex; align-items:center; justify-content:space-between; }
+  .logo{ font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:1.1rem; }
+  .logo span{ color:var(--pink); }
+  .back-link{ font-size:.88rem; color:var(--text-1); display:flex; align-items:center; gap:6px; }
+  .back-link:hover{ color:var(--text-0); }
+
+  .hero{ padding:70px 0 40px; text-align:center; }
+  .hero h1{ font-size:clamp(2rem,5vw,3.2rem); }
+  .hero h1 em{ font-style:normal; background:linear-gradient(100deg,var(--pink),var(--amber) 60%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hero p{ max-width:52ch; margin:18px auto 0; font-size:1.05rem; }
+
+  .filters{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; padding:30px 0 50px; }
+  .filter-btn{
+    padding:10px 20px; border-radius:100px; font-size:.85rem; font-weight:600; cursor:pointer;
+    background:var(--glass); border:1px solid var(--glass-border); color:var(--text-1);
+    transition:all .25s ease;
+  }
+  .filter-btn:hover{ border-color:var(--glass-border-hi); color:var(--text-0); }
+  .filter-btn.active{ background:linear-gradient(135deg,var(--pink),#ff6ab0); color:#170a1c; border-color:transparent; }
+
+  .category-section{ padding:20px 0 70px; scroll-margin-top:90px; }
+  .cat-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:26px; flex-wrap:wrap; }
+  .cat-head h2{ font-size:clamp(1.4rem,2.6vw,1.9rem); }
+  .cat-count{ font-size:.82rem; color:var(--text-2); background:var(--glass); border:1px solid var(--glass-border); padding:4px 12px; border-radius:100px; }
+
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:18px; }
+  .card{ overflow:hidden; transition:transform .3s var(--ease), border-color .3s ease; cursor:pointer; }
+  .card:hover{ transform:translateY(-4px); border-color:var(--glass-border-hi); }
+  .card .thumb{ width:100%; aspect-ratio:3/4; object-fit:cover; background:#150c28; }
+  .card .meta{ padding:12px 14px; }
+  .card .type{ font-size:.82rem; font-weight:600; color:var(--text-0); }
+  .card .biz{ font-size:.74rem; color:var(--text-2); margin-top:2px; }
+
+  /* lightbox */
+  .lightbox{ position:fixed; inset:0; z-index:100; background:rgba(6,3,14,.92); display:none; align-items:center; justify-content:center; padding:30px; }
+  .lightbox.open{ display:flex; }
+  .lightbox img{ max-width:min(600px,90vw); max-height:85vh; border-radius:14px; border:1px solid var(--glass-border-hi); }
+  .lightbox-close{ position:absolute; top:24px; right:28px; font-size:1.6rem; color:var(--text-0); cursor:pointer; background:var(--glass); border:1px solid var(--glass-border); width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+
+  footer{ padding:40px 0 60px; text-align:center; color:var(--text-2); font-size:.85rem; }
+
+  @media (max-width:640px){ .grid{ grid-template-columns:repeat(2,1fr); gap:12px; } }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<nav>
+  <div class="wrap inner">
+    <div class="logo">ANYX<span>.</span>STUDIO</div>
+    <a href="index.html" class="back-link">&larr; Back to home</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Our <em>work</em>, by business type.</h1>
+      <p>Browse real design samples — posters, menus, standees, and cards — organized by the kind of shop they were made for.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="barbershop">Barbershop</button>
+      <button class="filter-btn" data-filter="restaurant">Restaurant</button>
+      <button class="filter-btn" data-filter="cafe">Cafe</button>
+      <button class="filter-btn" data-filter="hotel">Hotel</button>
+      <button class="filter-btn" data-filter="medical">Medical</button>
+      <button class="filter-btn" data-filter="gym">Gym</button>
+      <button class="filter-btn" data-filter="salon">Beauty Salon</button>
+      <button class="filter-btn" data-filter="clothing">Clothing</button>
+      <button class="filter-btn" data-filter="mobile">Mobile Repair</button>
+      <button class="filter-btn" data-filter="bakery">Bakery</button>
+      <button class="filter-btn" data-filter="hardware">Hardware/Paint</button>
+      <button class="filter-btn" data-filter="kirana">Kirana</button>
+      <button class="filter-btn" data-filter="art">Art Supplies</button>
+      <button class="filter-btn" data-filter="foodstall">Food Stall</button>
+      <button class="filter-btn" data-filter="universal">Universal</button>
+    </div>
+  </div>
+
+  <div class="wrap" id="gallery-root">
+    <!-- Sections injected by data below -->
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Anyx Studio — Print. Brand. Grow.</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-close" id="lightboxClose">&times;</div>
+  <img id="lightboxImg" src="" alt="" />
+</div>
+
+<script>
+const CATEGORIES = [
+  { id:"barbershop", name:"Barbershop", items:[
+    {src:"images/barbershop/01-offer-poster.jpg", type:"Offer Poster", biz:"Liceria & Co."},
+    {src:"images/barbershop/02-loyalty-card.jpg", type:"Loyalty Card", biz:"Palette Barber"},
+    {src:"images/barbershop/03-banner.jpg", type:"Shop Banner", biz:"Barbershop Fauget"},
+    {src:"images/barbershop/04-offer-poster-2.jpg", type:"Offer Poster", biz:"Hanover and Tyke"},
+    {src:"images/barbershop/05-upi-qr-standee.jpg", type:"UPI QR Standee", biz:"Generic"},
+    {src:"images/barbershop/06-rate-board.jpg", type:"Rate / Price Board", biz:"Barber Shop"}
+  ]},
+  { id:"restaurant", name:"Restaurant", items:[
+    {src:"images/restaurant/01-offer-poster.jpg", type:"Offer Poster", biz:"Keithston and Partners"},
+    {src:"images/restaurant/02-offer-poster-2.jpg", type:"Offer Poster", biz:"Pizza Promo"},
+    {src:"images/restaurant/03-menu-board.jpg", type:"Menu Board", biz:"Rimberio Co Burgers"},
+    {src:"images/restaurant/04-menu-qr-standee.jpg", type:"Digital Menu QR Standee", biz:"Al Dente by Antonio"}
+  ]},
+  { id:"cafe", name:"Cafe / Tea Stall", items:[
+    {src:"images/cafe/01-menu-qr-standee.jpg", type:"Menu QR Standee", biz:"Liceria Cafe"},
+    {src:"images/cafe/02-table-tent-qr.jpg", type:"Table Tent QR", biz:"Order Here — Table 12"},
+    {src:"images/cafe/03-loyalty-card.jpg", type:"Loyalty Card", biz:"Artsy Cafe"},
+    {src:"images/cafe/04-menu-board.jpg", type:"Menu Board", biz:"Rimberio Cafe"}
+  ]},
+  { id:"hotel", name:"Hotel / Lodge", items:[
+    {src:"images/hotel/01-table-tent-qr-front.jpg", type:"Table Tent QR", biz:"The Amandine Hotel"},
+    {src:"images/hotel/02-review-card.jpg", type:"Google Review Card", biz:"Ultimate Hotel"},
+    {src:"images/hotel/03-offer-poster.jpg", type:"Offer Poster", biz:"Deluxe Room Special"},
+    {src:"images/hotel/04-banner.jpg", type:"Shop Banner", biz:"Fauget Hotel"},
+    {src:"images/hotel/05-rate-flyer.jpg", type:"Rate / Offer Flyer", biz:"Liceria & Co."},
+    {src:"images/hotel/06-vacation-banner.jpg", type:"Offer Banner", biz:"Giggling Hotel"}
+  ]},
+  { id:"medical", name:"Medical / Pharmacy", items:[
+    {src:"images/medical/01-prescription-notepad.jpg", type:"Prescription Notepad", biz:"Aruga Medical"},
+    {src:"images/medical/02-review-card.jpg", type:"Google Review Card", biz:"Generic Clinic"},
+    {src:"images/medical/03-offer-poster.jpg", type:"Offer / Awareness Poster", biz:"Medical Health"},
+    {src:"images/medical/04-business-card.jpg", type:"Business Card", biz:"Dr. Dani Martinez"},
+    {src:"images/medical/05-offer-poster-2.jpg", type:"Offer Poster", biz:"Medical Check Up"},
+    {src:"images/medical/06-banner.jpg", type:"Shop Banner", biz:"Healthcare & Medical"}
+  ]},
+  { id:"gym", name:"Gym / Fitness", items:[
+    {src:"images/gym/01-offer-poster.jpg", type:"Offer Poster", biz:"Fauget Fitness Center"},
+    {src:"images/gym/02-offer-poster-2.jpg", type:"Offer Poster", biz:"Shape Your Body"},
+    {src:"images/gym/03-banner.jpg", type:"Shop Banner", biz:"Borcelle Gym"},
+    {src:"images/gym/04-offer-poster-3.jpg", type:"Offer Poster", biz:"Wardiere Gym Center"},
+    {src:"images/gym/05-rate-board.jpg", type:"Rate / Pricing Board", biz:"Fit Lifestyle"}
+  ]},
+  { id:"salon", name:"Beauty Salon", items:[
+    {src:"images/salon/01-loyalty-card.jpg", type:"Loyalty Card", biz:"Beauty Salon"},
+    {src:"images/salon/02-offer-poster.jpg", type:"Offer / Service Poster", biz:"Beauty Salon"},
+    {src:"images/salon/03-nail-loyalty-card.jpg", type:"Loyalty Card", biz:"Nail Salon"},
+    {src:"images/salon/04-banner.jpg", type:"Shop Banner", biz:"Borcelle Beauty Bar"},
+    {src:"images/salon/05-offer-poster-2.jpg", type:"Offer Poster", biz:"Bridal Makeup"},
+    {src:"images/salon/06-rate-board.jpg", type:"Rate / Price List", biz:"Beauty Price List"}
+  ]},
+  { id:"clothing", name:"Clothing Store", items:[
+    {src:"images/clothing/01-review-card.jpg", type:"Google Review Card", biz:"Fashion Store"},
+    {src:"images/clothing/02-banner.jpg", type:"Shop Banner", biz:"Larana Fashion Store"},
+    {src:"images/clothing/03-loyalty-card.jpg", type:"Loyalty Card", biz:"Larana Store"},
+    {src:"images/clothing/04-business-card.jpg", type:"Business Card", biz:"Ingoude Clothing Factory"},
+    {src:"images/clothing/05-offer-poster.jpg", type:"Offer Poster", biz:"Fashion Sale"},
+    {src:"images/clothing/06-jewelry-loyalty-card.jpg", type:"Loyalty Card", biz:"Fashion Fiesta"},
+    {src:"images/clothing/07-review-card-2.jpg", type:"Google Review Card", biz:"Clothing Store"}
+  ]},
+  { id:"mobile", name:"Mobile / Electronics Repair", items:[
+    {src:"images/mobile/01-banner.jpg", type:"Shop Banner", biz:"Rimberio Mobile"},
+    {src:"images/mobile/02-offer-poster.jpg", type:"Offer Poster", biz:"Smartphone Sale"},
+    {src:"images/mobile/03-rate-service-list.jpg", type:"Rate / Service List", biz:"Larana Inc."},
+    {src:"images/mobile/04-offer-poster-2.jpg", type:"Offer / Service Poster", biz:"Phone Repair"}
+  ]},
+  { id:"bakery", name:"Bakery / Sweet Shop", items:[
+    {src:"images/bakery/01-loyalty-card.jpg", type:"Loyalty Card", biz:"Fresh Bakery"},
+    {src:"images/bakery/02-table-tent-menu.jpg", type:"Table Tent Menu", biz:"Pancake Heaven"},
+    {src:"images/bakery/03-qr-hours-poster.jpg", type:"QR / Hours Poster", biz:"Freshly Baked"},
+    {src:"images/bakery/04-offer-poster.jpg", type:"Offer Poster", biz:"Freshly Baked 20% Off"},
+    {src:"images/bakery/05-banner.jpg", type:"Shop Banner", biz:"Homemade Cakes"},
+    {src:"images/bakery/06-menu-board.jpg", type:"Menu Board", biz:"Olivia Bakery"}
+  ]},
+  { id:"hardware", name:"Hardware / Paint Store", items:[
+    {src:"images/hardware/01-business-card.jpg", type:"Business Card", biz:"Audora Hardware Co."},
+    {src:"images/hardware/02-paint-business-card.jpg", type:"Business Card", biz:"ZimCore Paints Inc."},
+    {src:"images/hardware/03-catalog-sheet.jpg", type:"Rate / Catalog Sheet", biz:"Industrial PPE Supply"}
+  ]},
+  { id:"kirana", name:"Kirana / Grocery", items:[
+    {src:"images/kirana/01-banner.jpg", type:"Shop Banner", biz:"Avery & Hannah's Sari-Sari Store"}
+  ]},
+  { id:"art", name:"Art Supplies Store", items:[
+    {src:"images/art/01-qr-standee.jpg", type:"QR Standee", biz:"Crafto Art Supplies"},
+    {src:"images/art/02-business-card-back.jpg", type:"Business Card (back)", biz:"Crafto Art Supplies"}
+  ]},
+  { id:"foodstall", name:"Street Food Stall", items:[
+    {src:"images/foodstall/01-banner.jpg", type:"Shop Banner", biz:"Mr. Petel's Food Stall"}
+  ]},
+  { id:"universal", name:"Universal (Any Shop)", items:[
+    {src:"images/universal/01-upi-qr-standee.jpg", type:"UPI QR Standee", biz:"Generic"},
+    {src:"images/universal/02-upi-qr-standee-2.jpg", type:"UPI QR Standee", biz:"Generic"},
+    {src:"images/universal/03-review-card.jpg", type:"Google Review Card", biz:"Generic — Google/Instagram/Facebook"}
+  ]}
+];
+
+const root = document.getElementById('gallery-root');
+CATEGORIES.forEach(cat => {
+  const section = document.createElement('section');
+  section.className = 'category-section';
+  section.id = cat.id;
+  section.dataset.cat = cat.id;
+
+  const head = document.createElement('div');
+  head.className = 'cat-head';
+  head.innerHTML = `<h2>${cat.name}</h2><span class="cat-count">${cat.items.length} design${cat.items.length>1?'s':''}</span>`;
+  section.appendChild(head);
+
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+  cat.items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'card glass';
+    card.innerHTML = `
+      <img class="thumb" src="${item.src}" alt="${item.type} - ${item.biz}" loading="lazy" />
+      <div class="meta">
+        <div class="type">${item.type}</div>
+        <div class="biz">${item.biz}</div>
+      </div>`;
+    card.addEventListener('click', () => openLightbox(item.src, `${item.type} — ${item.biz}`));
+    grid.appendChild(card);
+  });
+  section.appendChild(grid);
+  root.appendChild(section);
+});
+
+// filters
+const filterBtns = document.querySelectorAll('.filter-btn');
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.category-section').forEach(sec => {
+      sec.style.display = (f === 'all' || sec.dataset.cat === f) ? '' : 'none';
+    });
+  });
+});
+
+// lightbox
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+function openLightbox(src, alt){
+  lightboxImg.src = src;
+  lightboxImg.alt = alt;
+  lightbox.classList.add('open');
+}
+document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) lightbox.classList.remove('open'); });
+</script>
+
+</body>
+</html>
