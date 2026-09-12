@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Anyx Studio — Branding for Local Shops | Jaipur</title>
+<meta name="description" content="Affordable, print-ready branding for local shops. UPI standees, menu boards, business cards, signage — designed and delivered in 1-2 days." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<style>
+  :root{
+    --bg-0:#0a0716;
+    --bg-1:#160c2e;
+    --bg-2:#1f1140;
+    --glass:rgba(255,255,255,0.055);
+    --glass-strong:rgba(255,255,255,0.09);
+    --glass-border:rgba(255,255,255,0.14);
+    --glass-border-hi:rgba(255,255,255,0.28);
+    --pink:#ff2e93;
+    --amber:#ffb238;
+    --cyan:#48e1ff;
+    --text-0:#f7f4ff;
+    --text-1:#c7c0e6;
+    --text-2:#8d84b5;
+    --radius:20px;
+    --ease:cubic-bezier(.16,.84,.32,1);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg-0);
+    color:var(--text-0);
+    font-family:'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Bricolage Grotesque', sans-serif;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.05;
+    margin:0;
+  }
+  p{color:var(--text-1); line-height:1.6; margin:0;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  ::selection{ background:var(--pink); color:#fff; }
+  :focus-visible{ outline:2px solid var(--cyan); outline-offset:3px; border-radius:6px; }
+
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 28px; }
+
+  /* ---------- 3D canvas background ---------- */
+  #webgl-bg{
+    position:fixed; inset:0; z-index:0;
+    background:radial-gradient(ellipse 120% 80% at 50% -10%, var(--bg-2), var(--bg-0) 60%);
+  }
+  #webgl-bg canvas{ display:block; width:100%; height:100%; }
+  .grain{
+    position:fixed; inset:0; z-index:1; opacity:.03; mix-blend-mode:overlay; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .vignette{
+    position:fixed; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(ellipse 100% 100% at 50% 50%, transparent 45%, rgba(6,3,14,.75) 100%);
+  }
+
+  /* cursor glow */
+  .cursor-glow{
+    position:fixed; width:380px; height:380px; border-radius:50%; pointer-events:none; z-index:2;
+    background:radial-gradient(circle, rgba(255,46,147,.09), transparent 65%);
+    transform:translate(-50%,-50%); mix-blend-mode:screen;
+  }
+
+  main{ position:relative; z-index:3; }
+
+  /* ---------- glass base ---------- */
+  .glass{
+    background:var(--glass);
+    border:1px solid var(--glass-border);
+    backdrop-filter:blur(22px) saturate(140%);
+    -webkit-backdrop-filter:blur(22px) saturate(140%);
+    border-radius:var(--radius);
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    padding:18px 0; transition:padding .4s var(--ease), background .4s ease;
+  }
+  nav .inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 22px; border-radius:16px;
+  }
+  nav.scrolled{ padding:10px 0; }
+  nav.scrolled .inner{ background:rgba(15,9,30,.6); border:1px solid var(--glass-border); backdrop-filter:blur(18px); }
+  .logo{ font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:1.15rem; letter-spacing:-0.01em; }
+  .logo span{ color:var(--pink); }
+  .navlinks{ display:flex; gap:30px; align-items:center; }
+  .navlinks a{ font-size:.92rem; color:var(--text-1); transition:color .25s ease; position:relative; }
+  .navlinks a:hover{ color:var(--text-0); }
+  .navlinks a.cta{
+    color:var(--bg-0); background:linear-gradient(135deg,var(--pink),#ff6ab0);
+    padding:9px 18px; border-radius:100px; font-weight:600;
+  }
+  .navlinks a.cta:hover{ filter:brightness(1.08); }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:190px 0 120px; position:relative; min-height:92vh; display:flex; align-items:center; }
+  .kicker{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:.85rem; color:var(--text-1); padding:7px 16px;
+    margin-bottom:26px;
+  }
+  .kicker .dot{ width:6px; height:6px; border-radius:50%; background:var(--amber); box-shadow:0 0 10px var(--amber); }
+  .hero h1{ font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:14ch; }
+  .hero h1 em{ font-style:normal; background:linear-gradient(100deg,var(--pink),var(--amber) 60%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hero .sub{ margin-top:26px; font-size:1.15rem; max-width:46ch; color:var(--text-1); }
+  .hero-cta{ display:flex; gap:16px; margin-top:38px; flex-wrap:wrap; }
+  .btn{
+    padding:15px 28px; border-radius:100px; font-weight:600; font-size:.95rem;
+    display:inline-flex; align-items:center; gap:10px; transition:transform .3s var(--ease), filter .3s ease, background .3s ease;
+    cursor:pointer; border:none;
+  }
+  .btn-primary{ background:linear-gradient(135deg,var(--pink),#ff6ab0); color:#170a1c; box-shadow:0 12px 30px -10px rgba(255,46,147,.55); }
+  .btn-primary:hover{ transform:translateY(-3px); filter:brightness(1.06); }
+  .btn-ghost{ color:var(--text-0); background:var(--glass); border:1px solid var(--glass-border); }
+  .btn-ghost:hover{ border-color:var(--glass-border-hi); transform:translateY(-3px); }
+
+  .hero-stats{ display:flex; gap:14px; margin-top:64px; flex-wrap:wrap; }
+  .stat-chip{ padding:16px 22px; min-width:150px; }
+  .stat-chip .label{ font-size:.75rem; color:var(--text-2); margin-bottom:6px; }
+  .stat-chip .val{ font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:1.05rem; }
+
+  .scroll-hint{
+    position:absolute; bottom:26px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:8px; color:var(--text-2); font-size:.78rem;
+  }
+  .scroll-hint .line{ width:1px; height:34px; background:linear-gradient(var(--pink), transparent); animation:scrolldown 1.8s ease-in-out infinite; }
+  @keyframes scrolldown{ 0%{ opacity:0; transform:scaleY(0.2); transform-origin:top;} 40%{opacity:1; transform:scaleY(1); transform-origin:top;} 100%{opacity:0; transform:scaleY(1); transform-origin:bottom;} }
+
+  /* ---------- section shell ---------- */
+  section{ padding:130px 0; position:relative; }
+  .eyebrow-row{ display:flex; align-items:flex-end; justify-content:space-between; gap:30px; margin-bottom:56px; flex-wrap:wrap; }
+  .eyebrow{ font-size:.85rem; color:var(--pink); font-weight:600; margin-bottom:14px; display:block; }
+  .sec-title{ font-size:clamp(1.9rem, 3.4vw, 2.7rem); max-width:18ch; }
+  .sec-sub{ max-width:42ch; font-size:1.02rem; }
+
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- trust pills ---------- */
+  .pillbar{ display:flex; gap:14px; flex-wrap:wrap; padding:26px; }
+  .pillbar .pill{ display:flex; align-items:center; gap:10px; padding:10px 18px; border-radius:100px; font-size:.88rem; color:var(--text-1); }
+  .pillbar svg{ width:16px; height:16px; stroke:var(--amber); flex-shrink:0; }
+
+  /* ---------- services grid ---------- */
+  .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media (max-width:900px){ .grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .grid{ grid-template-columns:1fr; } }
+
+  .tilt-card{
+    padding:30px 26px; position:relative; overflow:hidden;
+    transition:border-color .3s ease, transform .1s ease-out;
+    will-change:transform;
+  }
+  .tilt-card::before{
+    content:''; position:absolute; inset:0; opacity:0; transition:opacity .4s ease;
+    background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.08), transparent 60%);
+  }
+  .tilt-card:hover::before{ opacity:1; }
+  .tilt-card:hover{ border-color:var(--glass-border-hi); }
+  .icon-badge{
+    width:46px; height:46px; border-radius:13px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, rgba(255,46,147,.18), rgba(72,225,255,.14));
+    border:1px solid var(--glass-border); margin-bottom:18px;
+  }
+  .icon-badge svg{ width:22px; height:22px; stroke:var(--text-0); fill:none; stroke-width:1.6; }
+  .tilt-card h3{ font-size:1.08rem; margin-bottom:8px; }
+  .tilt-card p{ font-size:.92rem; }
+
+  /* ---------- work grid ---------- */
+  .work-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  @media (max-width:900px){ .work-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .work-grid{ grid-template-columns:1fr; } }
+  .work-card{
+    padding:24px; display:flex; flex-direction:column; gap:40px; justify-content:space-between;
+    transition:transform .35s var(--ease), border-color .35s ease;
+  }
+  .work-card:hover{ transform:translateY(-6px); border-color:var(--glass-border-hi); }
+  .work-card .biz{ font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:1.15rem; }
+  .work-card .type{ font-size:.85rem; color:var(--text-2); margin-top:4px; }
+  .work-card .go{ font-size:.85rem; color:var(--cyan); display:inline-flex; align-items:center; gap:6px; }
+  .work-card .go svg{ width:14px; height:14px; transition:transform .3s ease; }
+  .work-card:hover .go svg{ transform:translateX(4px); }
+
+  /* ---------- transformation ---------- */
+  .transform-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:stretch; }
+  @media (max-width:800px){ .transform-wrap{ grid-template-columns:1fr; } }
+  .transform-card{ padding:34px; position:relative; }
+  .transform-card .lbl{ font-size:.78rem; color:var(--text-2); margin-bottom:18px; display:block; }
+  .before-sheet{
+    background:repeating-linear-gradient(rgba(255,255,255,.025) 0 1px, transparent 1px 34px);
+    font-family:'Bricolage Grotesque',sans-serif; color:#cfc8ea;
+    padding:20px 4px;
+  }
+  .before-sheet .row{ display:flex; justify-content:space-between; padding:8px 0; font-size:.95rem; border-bottom:1px dashed rgba(255,255,255,.08); }
+  .before-sheet .note{ margin-top:18px; font-size:.78rem; color:var(--text-2); font-style:italic; }
+  .after-menu{ border-radius:14px; overflow:hidden; border:1px solid var(--glass-border-hi); }
+  .after-menu .head{ padding:20px 22px; background:linear-gradient(135deg, rgba(255,46,147,.2), rgba(255,178,56,.14)); }
+  .after-menu .head .b{ font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:1.2rem; }
+  .after-menu .head .s{ font-size:.8rem; color:var(--text-1); margin-top:2px; }
+  .after-menu .items{ padding:18px 22px; }
+  .after-menu .row{ display:flex; justify-content:space-between; padding:11px 0; font-size:.95rem; border-bottom:1px solid rgba(255,255,255,.06); }
+  .after-menu .row span:last-child{ color:var(--amber); font-weight:600; }
+
+  /* ---------- how it works ---------- */
+  .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  @media (max-width:800px){ .steps{ grid-template-columns:1fr; } }
+  .step{ padding:32px 28px; }
+  .step .num{ font-family:'Bricolage Grotesque',sans-serif; font-size:2.2rem; font-weight:800; background:linear-gradient(135deg,var(--pink),var(--amber)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .step h3{ font-size:1.1rem; margin:14px 0 10px; }
+  .step p{ font-size:.92rem; }
+
+  /* ---------- pricing ---------- */
+  .price-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  @media (max-width:800px){ .price-grid{ grid-template-columns:1fr; } }
+  .price-card{ padding:36px; position:relative; }
+  .price-card.pop{ border-color:var(--pink); box-shadow:0 30px 60px -30px rgba(255,46,147,.4); }
+  .badge{ position:absolute; top:-13px; right:28px; background:linear-gradient(135deg,var(--pink),#ff6ab0); color:#170a1c; font-size:.72rem; font-weight:700; padding:6px 14px; border-radius:100px; }
+  .price-card .tier{ font-size:.95rem; color:var(--text-1); }
+  .price-card .amount{ font-family:'Bricolage Grotesque',sans-serif; font-size:2.3rem; font-weight:800; margin:10px 0 22px; }
+  .price-card ul{ list-style:none; padding:0; margin:0 0 26px; display:flex; flex-direction:column; gap:12px; }
+  .price-card li{ display:flex; gap:10px; align-items:flex-start; font-size:.93rem; color:var(--text-1); }
+  .price-card li svg{ width:16px; height:16px; stroke:var(--cyan); flex-shrink:0; margin-top:2px; }
+  .price-mini{ display:flex; gap:14px; margin-top:22px; flex-wrap:wrap; }
+  .price-mini .m{ flex:1; min-width:150px; padding:20px; }
+  .price-mini .m .t{ font-size:.82rem; color:var(--text-2); margin-bottom:6px; }
+  .price-mini .m .v{ font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:1.05rem; }
+
+  .digital-note{ display:flex; gap:16px; align-items:flex-start; padding:24px 26px; margin-bottom:46px; }
+  .digital-note svg{ width:26px; height:26px; stroke:var(--amber); flex-shrink:0; margin-top:2px; }
+  .digital-note p{ color:var(--text-0); font-size:.96rem; }
+  .digital-note strong{ color:var(--amber); }
+
+  .price-list{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:56px; }
+  @media (max-width:900px){ .price-list{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .price-list{ grid-template-columns:1fr; } }
+  .price-item{ display:flex; align-items:center; justify-content:space-between; gap:14px; padding:15px 18px; }
+  .price-item .name{ font-size:.9rem; color:var(--text-0); }
+  .price-item .amt{ font-family:'Bricolage Grotesque',sans-serif; font-weight:700; color:var(--amber); white-space:nowrap; }
+
+  .plan-badge-dot{ display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:8px; vertical-align:middle; }
+  .package-heading{ text-align:center; margin-bottom:36px; }
+  .package-heading h3{ font-size:clamp(1.4rem,2.6vw,1.9rem); }
+  .package-heading p{ margin-top:10px; }
+  .package-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  @media (max-width:900px){ .package-grid{ grid-template-columns:1fr; max-width:420px; margin:0 auto; } }
+
+  /* ---------- why us ---------- */
+  .why-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px 28px; }
+  @media (max-width:700px){ .why-grid{ grid-template-columns:1fr; } }
+  .why-item{ display:flex; gap:14px; align-items:flex-start; padding:18px 0; }
+  .why-item svg{ width:20px; height:20px; stroke:var(--amber); flex-shrink:0; margin-top:2px; }
+  .why-item p{ color:var(--text-0); font-size:.98rem; }
+
+  /* ---------- cta ---------- */
+  .cta-panel{ padding:70px 50px; text-align:center; position:relative; overflow:hidden; }
+  .cta-panel h2{ font-size:clamp(1.8rem,3.6vw,2.8rem); max-width:20ch; margin:0 auto 20px; }
+  .cta-panel .btns{ display:flex; gap:16px; justify-content:center; margin-top:34px; flex-wrap:wrap; }
+  .contact-row{ display:flex; gap:40px; justify-content:center; margin-top:46px; flex-wrap:wrap; }
+  .contact-row .c{ font-size:.85rem; color:var(--text-2); }
+  .contact-row .c strong{ display:block; color:var(--text-0); font-size:.98rem; margin-top:4px; font-weight:600; }
+
+  footer{ padding:40px 0 50px; text-align:center; color:var(--text-2); font-size:.85rem; }
+
+  #webgl-status{
+    position:fixed; bottom:16px; left:16px; z-index:60; font-size:.72rem; color:var(--text-2);
+    background:rgba(10,7,22,.6); padding:6px 12px; border-radius:100px; border:1px solid var(--glass-border);
+    opacity:0; pointer-events:none; transition:opacity .4s ease;
+  }
+  #webgl-status.show{ opacity:1; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+    .reveal{ opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="webgl-bg"></div>
+<div class="vignette"></div>
+<div class="grain"></div>
+<div class="cursor-glow" id="glow"></div>
+<div id="webgl-status"></div>
+
+<nav id="nav">
+  <div class="wrap">
+    <div class="inner">
+      <div class="logo">ANYX<span>.</span>STUDIO</div>
+      <div class="navlinks">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="gallery.html">Samples</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#social">Social Media</a>
+        <a href="mailto:aalokai777@gmail.com" class="cta">Enquire Now</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker glass"><span class="dot"></span>Print · Brand · Grow</div>
+      <h1>Branding that makes local shops <em>legendary.</em></h1>
+      <p class="sub">We design and print professional UPI standees, menu boards, business cards and signage for local shops — affordable, custom-made, and delivered in 1–2 days.</p>
+      <div class="hero-cta">
+        <a href="mailto:aalokai777@gmail.com" class="btn btn-primary">Enquire Now</a>
+        <a href="gallery.html" class="btn btn-ghost">See Sample Gallery</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-chip glass"><div class="label">Based in</div><div class="val">Jaipur, Rajasthan</div></div>
+        <div class="stat-chip glass"><div class="label">Delivery</div><div class="val">1–2 Days</div></div>
+        <div class="stat-chip glass"><div class="label">Enquiries</div><div class="val">aalokai777@gmail.com</div></div>
+      </div>
+    </div>
+    <div class="scroll-hint"><span>Scroll to explore the work</span><span class="line"></span></div>
+  </section>
+
+  <!-- TRUST PILLS -->
+  <div class="wrap reveal">
+    <div class="pillbar glass">
+      <div class="pill"><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Affordable pricing for every shop</div>
+      <div class="pill"><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Fast delivery, 1–2 days</div>
+      <div class="pill"><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>100% custom, print-ready designs</div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="eyebrow-row reveal">
+        <div>
+          <span class="eyebrow">What we offer</span>
+          <h2 class="sec-title">Everything your shop needs to look the part.</h2>
+        </div>
+        <p class="sec-sub">Watch the cards open behind you as you scroll — each one is a piece we design and print for shops like yours.</p>
+      </div>
+
+      <div class="grid">
+        <div class="tilt-card glass reveal">
+          <div class="icon-badge"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h7v7h-7z"/></svg></div>
+          <h3>UPI QR Standees</h3>
+          <p>Table-top scan-and-pay standees your customers can't miss.</p>
+        </div>
+        <div class="tilt-card glass reveal">
+          <div class="icon-badge"><svg viewBox="0 0 24 24"><path d="M12 17.3l-5.4 3 1.4-6-4.6-4 6.1-.5L12 4l2.5 5.8 6.1.5-4.6 4 1.4 6z"/></svg></div>
+          <h3>Google Review Cards</h3>
+          <p>Turn walk-ins into 5-star reviews with a simple scan.</p>
+        </div>
+        <div class="tilt-card glass reveal">
+          <div class="icon-badge"><svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M2.5 10h19"/></svg></div>
+          <h3>Business Cards</h3>
+          <p>Clean, professional cards that represent your shop well.</p>
+        </div>
+        <div class="tilt-card glass reveal">
+          <div class="icon-badge"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></div>
+          <h3>Price / Rate Boards</h3>
+          <p>Legible, branded rate lists that replace handwritten sheets.</p>
+        </div>
+        <div class="tilt-card glass reveal">
+          <div class="icon-badge"><svg viewBox="0 0 24 24"><path d="M4 6h16l-1.5 13h-13z"/><path d="M9 6a3 3 0 016 0"/></svg></div>
+          <h3>Offer Posters</h3>
+          <p>Eye-catching posters for weekend deals and new stock.</p>
+        </div>
+        <div class="tilt-card glass reveal">
+          <div class="icon-badge"><svg viewBox="0 0 24 24"><path d="M6 3v18M18 3v18M6 3h12v18H6z"/></svg></div>
+          <h3>Table Tent Cards</h3>
+          <p>Two-sided standees for menus, feedback, and offers.</p>
+        </div>
+        <div class="tilt-card glass reveal">
+          <div class="icon-badge"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h4v4H7zM13 13h4v4h-4z"/></svg></div>
+          <h3>Digital Menu QR Standees</h3>
+          <p>One scan opens your full menu — no reprints when prices change.</p>
+        </div>
+        <div class="tilt-card glass reveal">
+          <div class="icon-badge"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h5"/></svg></div>
+          <h3>Loyalty Cards</h3>
+          <p>Stamp cards that bring customers back for their next visit.</p>
+        </div>
+        <div class="tilt-card glass reveal">
+          <div class="icon-badge"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M10 21v-6h4v6"/></svg></div>
+          <h3>Shop Signage Concepts</h3>
+          <p>Redesign concepts for your storefront board and banners.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="eyebrow-row reveal">
+        <div>
+          <span class="eyebrow">Who we work with</span>
+          <h2 class="sec-title">Built for the shop on your street.</h2>
+        </div>
+        <p class="sec-sub">Tap any business type to open its sample gallery — banners, QR standees, menus, reels and more.</p>
+      </div>
+
+      <div class="work-grid">
+        <a href="gallery.html#barbershop" class="work-card glass reveal">
+          <div><div class="biz">Style Cuts</div><div class="type">Barbershop</div></div>
+          <div class="go">View samples <svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <a href="gallery.html#restaurant" class="work-card glass reveal">
+          <div><div class="biz">Spice Garden</div><div class="type">Restaurant</div></div>
+          <div class="go">View samples <svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <a href="gallery.html#kirana" class="work-card glass reveal">
+          <div><div class="biz">Sharma Kirana</div><div class="type">Grocery store</div></div>
+          <div class="go">View samples <svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <a href="gallery.html#pharmacy" class="work-card glass reveal">
+          <div><div class="biz">Wellness</div><div class="type">Pharmacy</div></div>
+          <div class="go">View samples <svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <a href="gallery.html#salon" class="work-card glass reveal">
+          <div><div class="biz">Glow</div><div class="type">Beauty salon</div></div>
+          <div class="go">View samples <svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <a href="gallery.html#bookstore" class="work-card glass reveal">
+          <div><div class="biz">Readers Corner</div><div class="type">Bookstore</div></div>
+          <div class="go">View samples <svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <a href="gallery.html#clothing" class="work-card glass reveal">
+          <div><div class="biz">Trend Threads</div><div class="type">Clothing store</div></div>
+          <div class="go">View samples <svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSFORMATION -->
+  <section>
+    <div class="wrap">
+      <div class="eyebrow-row reveal">
+        <div>
+          <span class="eyebrow">The transformation</span>
+          <h2 class="sec-title">From handwritten sheet to a design customers trust.</h2>
+        </div>
+        <p class="sec-sub">Most shops we meet are still running on a taped-up paper list. We keep every price and detail exactly the same — we just make it look like a shop worth walking into.</p>
+      </div>
+
+      <div class="transform-wrap reveal">
+        <div class="transform-card glass">
+          <span class="lbl">Before</span>
+          <div class="before-sheet">
+            <div class="row"><span>Hair Cut</span><span>— 100</span></div>
+            <div class="row"><span>Beard</span><span>— 80</span></div>
+            <div class="row"><span>Hair Wash</span><span>— 70</span></div>
+            <div class="row"><span>Wax</span><span>— 50</span></div>
+            <div class="note">— taped to the mirror since 2021</div>
+          </div>
+        </div>
+        <div class="transform-card glass">
+          <span class="lbl">After</span>
+          <div class="after-menu">
+            <div class="head">
+              <div class="b">Style Cuts</div>
+              <div class="s">Service menu</div>
+            </div>
+            <div class="items">
+              <div class="row"><span>Hair Cut</span><span>₹150</span></div>
+              <div class="row"><span>Beard Trim</span><span>₹100</span></div>
+              <div class="row"><span>Hair Wash</span><span>₹80</span></div>
+              <div class="row"><span>Hair Spa</span><span>₹250</span></div>
+              <div class="row"><span>Facial</span><span>₹300</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <div class="wrap">
+      <div class="eyebrow-row reveal">
+        <div>
+          <span class="eyebrow">How it works</span>
+          <h2 class="sec-title">Simple. Fast. Hassle-free.</h2>
+        </div>
+      </div>
+      <div class="steps reveal">
+        <div class="step glass">
+          <div class="num">01</div>
+          <h3>We show you sample designs</h3>
+          <p>Send us your shop details — we walk you through matching samples from our gallery.</p>
+        </div>
+        <div class="step glass">
+          <div class="num">02</div>
+          <h3>You approve, we print</h3>
+          <p>Like what you see? We finalise the full set and send it to print-ready files.</p>
+        </div>
+        <div class="step glass">
+          <div class="num">03</div>
+          <h3>We deliver and install</h3>
+          <p>Your materials arrive ready to use — standees, boards, and cards, set up on-site.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="wrap">
+      <div class="eyebrow-row reveal">
+        <div>
+          <span class="eyebrow">Pricing</span>
+          <h2 class="sec-title">Simple pricing, digital-first.</h2>
+        </div>
+        <p class="sec-sub">Pick a single design or save with a package — every price below is for the digital file.</p>
+      </div>
+
+      <div class="digital-note glass reveal">
+        <svg viewBox="0 0 24 24" stroke-width="2" fill="none"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+        <p>All prices are for a <strong>high-resolution digital copy</strong> (JPG/PDF) — ready to post on Instagram or send straight to any print shop. Want it <strong>printed and delivered</strong> too (flex, sticker, standee, etc.)? That's an easy add-on — just ask for a quote.</p>
+      </div>
+
+      <div class="price-list reveal">
+        <div class="price-item glass"><span class="name">🖼️ Promotional Poster</span><span class="amt">₹299</span></div>
+        <div class="price-item glass"><span class="name">📱 Instagram/Facebook Post</span><span class="amt">₹299</span></div>
+        <div class="price-item glass"><span class="name">📢 Offer / Sale Poster</span><span class="amt">₹349</span></div>
+        <div class="price-item glass"><span class="name">🏪 Shop Banner Design</span><span class="amt">₹499</span></div>
+        <div class="price-item glass"><span class="name">🍔 Restaurant/Food Poster</span><span class="amt">₹399</span></div>
+        <div class="price-item glass"><span class="name">💈 Barber/Salon Poster</span><span class="amt">₹399</span></div>
+        <div class="price-item glass"><span class="name">🪪 Visiting Card Design</span><span class="amt">₹399</span></div>
+        <div class="price-item glass"><span class="name">⭐ Google Review Card</span><span class="amt">₹299</span></div>
+        <div class="price-item glass"><span class="name">📲 QR Code Standee Design</span><span class="amt">₹399</span></div>
+        <div class="price-item glass"><span class="name">🍽️ Menu Design – 1 Page</span><span class="amt">₹399</span></div>
+        <div class="price-item glass"><span class="name">🍽️ Menu Design – 4 Pages</span><span class="amt">₹999</span></div>
+        <div class="price-item glass"><span class="name">🍽️ Menu Design – 8 Pages</span><span class="amt">₹1,799</span></div>
+        <div class="price-item glass"><span class="name">🎟️ Loyalty Card</span><span class="amt">₹299</span></div>
+        <div class="price-item glass"><span class="name">🏷️ Rate List / Price Board</span><span class="amt">₹399</span></div>
+        <div class="price-item glass"><span class="name">📸 Instagram Story</span><span class="amt">₹199</span></div>
+        <div class="price-item glass"><span class="name">🎨 Basic Logo Design</span><span class="amt">₹999</span></div>
+        <div class="price-item glass"><span class="name">🏷️ Shop/Business Branding Starter</span><span class="amt">₹1,999</span></div>
+      </div>
+
+      <div class="package-heading reveal">
+        <h3>Save more with a package</h3>
+        <p class="sec-sub" style="margin:10px auto 0;">Bundled designs for shops that want a complete, brand-matched look.</p>
+      </div>
+
+      <div class="package-grid reveal">
+        <div class="price-card glass">
+          <div class="tier">Starter</div>
+          <div class="amount">₹999</div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>3 Promotional Posters</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>1 Instagram Story</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>1 Google Review Card</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Digital files</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>2 revisions</li>
+          </ul>
+          <a href="mailto:aalokai777@gmail.com?subject=Starter%20Package%20Enquiry" class="btn btn-ghost" style="width:100%; justify-content:center;">Enquire Now</a>
+        </div>
+
+        <div class="price-card glass pop">
+          <div class="badge">Most popular</div>
+          <div class="tier">Business</div>
+          <div class="amount">₹1,999</div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>5 Promotional Posters</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>2 Instagram Stories</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Visiting Card Design</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Google Review Card</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>QR Standee Design</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>2 revisions</li>
+          </ul>
+          <a href="mailto:aalokai777@gmail.com?subject=Business%20Package%20Enquiry" class="btn btn-primary" style="width:100%; justify-content:center;">Enquire Now</a>
+        </div>
+
+        <div class="price-card glass">
+          <div class="tier">Premium</div>
+          <div class="amount">₹3,499</div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>8 Promotional Posters</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>4 Instagram Stories</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Menu Design (up to 4 pages)</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Visiting Card + Loyalty Card</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Google Review Card + QR Standee</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Brand-matched designs throughout</li>
+          </ul>
+          <a href="mailto:aalokai777@gmail.com?subject=Premium%20Package%20Enquiry" class="btn btn-ghost" style="width:100%; justify-content:center;">Enquire Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL MEDIA & DIGITAL PRESENCE -->
+  <section id="social">
+    <div class="wrap">
+      <div class="eyebrow-row reveal">
+        <div>
+          <span class="eyebrow">Beyond print</span>
+          <h2 class="sec-title">We also run your social media and digital presence.</h2>
+        </div>
+        <p class="sec-sub">Reels, Instagram/Facebook management, Google Business Profile, and website upkeep — so your shop shows up online, not just on the wall.</p>
+      </div>
+
+      <div class="price-list reveal">
+        <div class="price-item glass"><span class="name">🎬 Reel Editing — Basic</span><span class="amt">₹399/reel</span></div>
+        <div class="price-item glass"><span class="name">🎬 Reel Editing — Premium</span><span class="amt">₹699/reel</span></div>
+        <div class="price-item glass"><span class="name">🎬 4 Reels / month</span><span class="amt">₹1,499</span></div>
+        <div class="price-item glass"><span class="name">🎬 8 Reels / month</span><span class="amt">₹2,799</span></div>
+        <div class="price-item glass"><span class="name">📷 Instagram Management</span><span class="amt">₹2,999/mo</span></div>
+        <div class="price-item glass"><span class="name">📷 Instagram + Facebook Mgmt</span><span class="amt">₹4,999/mo</span></div>
+        <div class="price-item glass"><span class="name">🗺️ Google Business Profile Mgmt</span><span class="amt">₹1,499/mo</span></div>
+        <div class="price-item glass"><span class="name">🌐 Website Maintenance</span><span class="amt">₹1,499–₹2,999/mo</span></div>
+        <div class="price-item glass"><span class="name">🌐 Website + Social Management</span><span class="amt">₹6,999+/mo</span></div>
+      </div>
+
+      <div class="package-heading reveal">
+        <h3>Monthly social media plans</h3>
+        <p class="sec-sub" style="margin:10px auto 0;">Hand over your shop's Instagram, Facebook, and Google presence — we handle the rest, every month.</p>
+      </div>
+
+      <div class="package-grid reveal">
+        <div class="price-card glass">
+          <div class="tier"><span class="plan-badge-dot" style="background:#3ddc84;"></span>Starter</div>
+          <div class="amount">₹4,999 <span style="font-size:.95rem;color:var(--text-2);font-weight:500;">/month</span></div>
+          <p style="font-size:.85rem; margin-bottom:18px;">For small shops, barbers &amp; salons.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Instagram + Facebook</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>8 designed posts</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>4 Reels</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Captions + hashtags</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Posting / scheduling</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Basic comment management</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Monthly performance summary</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>2 revisions per design</li>
+          </ul>
+          <a href="mailto:aalokai777@gmail.com?subject=Social%20Starter%20Plan%20Enquiry" class="btn btn-ghost" style="width:100%; justify-content:center;">Enquire Now</a>
+        </div>
+
+        <div class="price-card glass pop">
+          <div class="badge">Most popular</div>
+          <div class="tier"><span class="plan-badge-dot" style="background:#48e1ff;"></span>Business</div>
+          <div class="amount">₹7,999 <span style="font-size:.95rem;color:var(--text-2);font-weight:500;">/month</span></div>
+          <p style="font-size:.85rem; margin-bottom:18px;">Our most recommended plan for growing shops.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Instagram + Facebook</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>12 posts + Stories</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>8 Reels</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Captions + hashtags</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Posting / scheduling</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Basic DM / comment management</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Google Business Profile updates</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Monthly content calendar + report</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>2 revisions</li>
+          </ul>
+          <a href="mailto:aalokai777@gmail.com?subject=Social%20Business%20Plan%20Enquiry" class="btn btn-primary" style="width:100%; justify-content:center;">Enquire Now</a>
+        </div>
+
+        <div class="price-card glass">
+          <div class="tier"><span class="plan-badge-dot" style="background:#ffb238;"></span>Premium</div>
+          <div class="amount">₹12,999 <span style="font-size:.95rem;color:var(--text-2);font-weight:500;">/month</span></div>
+          <p style="font-size:.85rem; margin-bottom:18px;">For restaurants, hotels, salons &amp; growing businesses.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Instagram + Facebook</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>16 posts + Stories</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>12 Reels</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Google Business Profile</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Content planning + captions/hashtags</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Community management</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Website content updates</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Monthly analytics/report</li>
+            <li><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12l5 5L20 7"/></svg>Priority delivery</li>
+          </ul>
+          <a href="mailto:aalokai777@gmail.com?subject=Social%20Premium%20Plan%20Enquiry" class="btn btn-ghost" style="width:100%; justify-content:center;">Enquire Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section>
+    <div class="wrap">
+      <div class="eyebrow-row reveal">
+        <div>
+          <span class="eyebrow">Why choose us</span>
+          <h2 class="sec-title">No design experience needed on your end.</h2>
+        </div>
+      </div>
+      <div class="why-grid reveal">
+        <div class="why-item"><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg><p>Super fast delivery — 1 to 2 days, most orders</p></div>
+        <div class="why-item"><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M12 2v20M2 12h20"/></svg><p>Affordable pricing built for every size of shop</p></div>
+        <div class="why-item"><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><circle cx="12" cy="12" r="9"/></svg><p>100% custom designs, made for your shop only</p></div>
+        <div class="why-item"><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M9 18l-5-5 1.4-1.4L9 15.2l9.6-9.6L20 7z"/></svg><p>No design experience needed from your side</p></div>
+        <div class="why-item"><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="3"/></svg><p>High quality, print-ready files every time</p></div>
+        <div class="why-item"><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M20 12a8 8 0 11-4.6-7.2"/></svg><p>Friendly support and guidance, start to finish</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section>
+    <div class="wrap">
+      <div class="cta-panel glass reveal">
+        <span class="eyebrow">Let's grow your business</span>
+        <h2>Order or enquire — over email.</h2>
+        <div class="btns">
+          <a href="mailto:aalokai777@gmail.com?subject=Enquiry%20from%20Anyx%20Studio%20website" class="btn btn-primary">Email for Orders &amp; Enquiry</a>
+          <a href="gallery.html" class="btn btn-ghost">Browse Sample Gallery</a>
+        </div>
+        <div class="contact-row">
+          <div class="c">Email<strong>aalokai777@gmail.com</strong></div>
+          <div class="c">Location<strong>Jaipur, Rajasthan</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Anyx Studio — Print. Brand. Grow.</div>
+</footer>
+
+<script>
+  // nav shrink + cursor glow + 2D reveal + card tilt (no WebGL needed for these)
+  (function(){
+    var nav = document.getElementById('nav');
+    window.addEventListener('scroll', function(){
+      nav.classList.toggle('scrolled', window.scrollY > 30);
+    });
+
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var glow = document.getElementById('glow');
+    if(!reduceMotion){
+      window.addEventListener('pointermove', function(e){
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+      });
+    } else { glow.style.display = 'none'; }
+
+    if(!reduceMotion){
+      document.querySelectorAll('.tilt-card').forEach(function(card){
+        card.addEventListener('pointermove', function(e){
+          var r = card.getBoundingClientRect();
+          var px = (e.clientX - r.left) / r.width;
+          var py = (e.clientY - r.top) / r.height;
+          var rx = (py - 0.5) * -10;
+          var ry = (px - 0.5) * 10;
+          card.style.transform = 'perspective(700px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-4px)';
+          card.style.setProperty('--mx', (px*100) + '%');
+          card.style.setProperty('--my', (py*100) + '%');
+        });
+        card.addEventListener('pointerleave', function(){
+          card.style.transform = 'perspective(700px) rotateX(0) rotateY(0) translateY(0)';
+        });
+      });
+    }
+
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  })();
+</script>
+
+<script type="module">
+  import * as THREE from 'three';
+  import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+  import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+  import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var container = document.getElementById('webgl-bg');
+  var statusEl = document.getElementById('webgl-status');
+
+  var CARD_LABELS = [
+    'UPI QR Standee', 'Google Review Card', 'Business Card', 'Rate Board',
+    'Offer Poster', 'Table Tent Card', 'Digital Menu Standee', 'Loyalty Card', 'Shop Signage'
+  ];
+  var COLOR_PAIRS = [
+    ['#ff2e93', '#ff6ab0'], ['#ffb238', '#ffd27a'], ['#48e1ff', '#8ff2ff'],
+    ['#ff2e93', '#ffb238'], ['#48e1ff', '#ff2e93'], ['#ffb238', '#48e1ff']
+  ];
+
+  function makeCardTexture(label, pairIndex){
+    var c = document.createElement('canvas');
+    c.width = 512; c.height = 640;
+    var ctx = c.getContext('2d');
+    var pair = COLOR_PAIRS[pairIndex % COLOR_PAIRS.length];
+    var grad = ctx.createLinearGradient(0, 0, 512, 640);
+    grad.addColorStop(0, '#120a24');
+    grad.addColorStop(1, '#1c1038');
+    ctx.fillStyle = grad;
+    roundRect(ctx, 0, 0, 512, 640, 28); ctx.fill();
+
+    ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+    ctx.lineWidth = 3;
+    roundRect(ctx, 6, 6, 500, 628, 24); ctx.stroke();
+
+    var glow = ctx.createRadialGradient(256, 200, 20, 256, 200, 340);
+    glow.addColorStop(0, pair[0] + 'aa');
+    glow.addColorStop(1, 'transparent');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, 512, 640);
+
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.font = '600 22px sans-serif';
+    ctx.fillText('ANYX STUDIO', 40, 70);
+
+    ctx.fillStyle = pair[1];
+    ctx.font = '700 21px sans-serif';
+    ctx.fillText('Print · Brand · Grow', 40, 100);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '700 46px sans-serif';
+    wrapText(ctx, label, 40, 470, 430, 52);
+
+    ctx.strokeStyle = pair[0];
+    ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.moveTo(40, 540); ctx.lineTo(220, 540); ctx.stroke();
+
+    var tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }
+
+  function makeLogoTexture(){
+    var c = document.createElement('canvas');
+    c.width = 800; c.height = 800;
+    var ctx = c.getContext('2d');
+    var cx = 400, cy = 400, r = 372;
+
+    var bg = ctx.createLinearGradient(0, 0, 800, 800);
+    bg.addColorStop(0, '#1c1038'); bg.addColorStop(1, '#0c0620');
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.fillStyle = bg; ctx.fill();
+
+    var ringGrad = ctx.createLinearGradient(0, 0, 800, 800);
+    ringGrad.addColorStop(0, '#ff2e93'); ringGrad.addColorStop(0.5, '#ffb238'); ringGrad.addColorStop(1, '#48e1ff');
+    ctx.lineWidth = 14; ctx.strokeStyle = ringGrad;
+    ctx.beginPath(); ctx.arc(cx, cy, r - 8, 0, Math.PI*2); ctx.stroke();
+
+    var glow = ctx.createRadialGradient(cx, cy-60, 10, cx, cy, r);
+    glow.addColorStop(0, 'rgba(255,255,255,0.14)'); glow.addColorStop(1, 'transparent');
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.fillStyle = glow; ctx.fill();
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#f7f4ff';
+    ctx.font = "800 168px Arial, sans-serif";
+    ctx.fillText('ANYX', cx, cy + 40);
+
+    ctx.fillStyle = '#ffb238';
+    ctx.font = "600 40px Arial, sans-serif";
+    ctx.fillText('S T U D I O', cx, cy + 110);
+
+    var tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }
+
+  function roundRect(ctx, x, y, w, h, r){
+    ctx.beginPath();
+    ctx.moveTo(x+r, y);
+    ctx.arcTo(x+w, y, x+w, y+h, r);
+    ctx.arcTo(x+w, y+h, x, y+h, r);
+    ctx.arcTo(x, y+h, x, y, r);
+    ctx.arcTo(x, y, x+w, y, r);
+    ctx.closePath();
+  }
+  function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+    var words = text.split(' ');
+    var line = '';
+    var lines = [];
+    for(var n=0; n<words.length; n++){
+      var testLine = line + words[n] + ' ';
+      if(ctx.measureText(testLine).width > maxWidth && n > 0){
+        lines.push(line); line = words[n] + ' ';
+      } else { line = testLine; }
+    }
+    lines.push(line);
+    var startY = y - (lines.length-1)*lineHeight*0.5;
+    lines.forEach(function(l, i){ ctx.fillText(l.trim(), x, startY + i*lineHeight); });
+  }
+
+  var scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x0a0716, 0.028);
+
+  var camera = new THREE.PerspectiveCamera(52, window.innerWidth/window.innerHeight, 0.1, 300);
+  camera.position.set(0, 0, 26);
+
+  var renderer;
+  try{
+    renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true, powerPreference:'high-performance' });
+  } catch(e){ renderer = null; }
+
+  if(!renderer){
+    statusEl.textContent = 'WebGL not available — showing simplified background';
+    statusEl.classList.add('show');
+  } else {
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 0);
+    container.appendChild(renderer.domElement);
+
+    // lights
+    scene.add(new THREE.AmbientLight(0x3a2e5c, 1.1));
+    var pink = new THREE.PointLight(0xff2e93, 60, 60); pink.position.set(-12, 6, 10); scene.add(pink);
+    var cyan = new THREE.PointLight(0x48e1ff, 50, 60); cyan.position.set(14, -6, -10); scene.add(cyan);
+    var amber = new THREE.PointLight(0xffb238, 40, 60); amber.position.set(0, 10, -30); scene.add(amber);
+
+    // rotating 3D logo badge with spotlight
+    var logoTex = makeLogoTexture();
+    var logoGeo = new THREE.CircleGeometry(3.3, 64);
+    var logoMat = new THREE.MeshStandardMaterial({
+      map: logoTex, transparent:true, side:THREE.DoubleSide,
+      metalness:0.45, roughness:0.22, emissive:new THREE.Color(0x2a1a45), emissiveIntensity:0.55
+    });
+    var logoMesh = new THREE.Mesh(logoGeo, logoMat);
+    logoMesh.position.set(0, 1.4, 9);
+    scene.add(logoMesh);
+
+    var logoSpot = new THREE.SpotLight(0xfff2d6, 320, 45, Math.PI/7, 0.4, 1.3);
+    logoSpot.position.set(0, 15, 13);
+    logoSpot.target = logoMesh;
+    scene.add(logoSpot, logoSpot.target);
+
+    var beamGeo = new THREE.CylinderGeometry(0.25, 4.6, 15, 32, 1, true);
+    var beamMat = new THREE.MeshBasicMaterial({
+      color:0xfff2d6, transparent:true, opacity:0.055, side:THREE.DoubleSide,
+      blending:THREE.AdditiveBlending, depthWrite:false
+    });
+    var logoBeam = new THREE.Mesh(beamGeo, beamMat);
+    logoBeam.position.set(0, 8.7, 11.5);
+    scene.add(logoBeam);
+
+    // floating cards
+    var cardGeo = new THREE.PlaneGeometry(6.2, 7.8, 1, 1);
+    var cards = [];
+    var CARD_COUNT = CARD_LABELS.length;
+    var Z_SPACING = 15;
+    var START_Z = -8;
+
+    for(var i=0; i<CARD_COUNT; i++){
+      var tex = makeCardTexture(CARD_LABELS[i], i);
+      var mat = new THREE.MeshStandardMaterial({
+        map: tex, transparent:true, side:THREE.DoubleSide,
+        roughness:0.35, metalness:0.15, emissive:new THREE.Color(0x1a0f30), emissiveIntensity:0.4
+      });
+      var mesh = new THREE.Mesh(cardGeo, mat);
+      var z = START_Z - i*Z_SPACING;
+      var xSide = (i % 2 === 0) ? -1 : 1;
+      var x = xSide * (4.5 + (i % 3));
+      var y = ((i * 37) % 7) - 3;
+      mesh.position.set(x, y, z);
+      mesh.rotation.y = Math.PI/2 * xSide;
+      mesh.userData = { baseX:x, baseY:y, baseZ:z, side:xSide, spin: 0.15 + (i%3)*0.08 };
+      scene.add(mesh);
+      cards.push(mesh);
+    }
+
+    var totalDepth = START_Z - (CARD_COUNT-1)*Z_SPACING - 20;
+
+    // postprocessing bloom
+    var composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
+    var bloom = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.55, 0.7, 0.15);
+    composer.addPass(bloom);
+
+    var mouseX = 0, mouseY = 0, targetMouseX = 0, targetMouseY = 0;
+    window.addEventListener('pointermove', function(e){
+      targetMouseX = (e.clientX / window.innerWidth - 0.5);
+      targetMouseY = (e.clientY / window.innerHeight - 0.5);
+    });
+
+    var scrollProgress = 0;
+    function updateScroll(){
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      scrollProgress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    }
+    window.addEventListener('scroll', updateScroll, { passive:true });
+    updateScroll();
+
+    function onResize(){
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      composer.setSize(window.innerWidth, window.innerHeight);
+    }
+    window.addEventListener('resize', onResize);
+
+    var clock = new THREE.Clock();
+
+    function animate(){
+      requestAnimationFrame(animate);
+      var t = clock.getElapsedTime();
+
+      var camZ = 26 + scrollProgress * totalDepth;
+      camera.position.z += (camZ - camera.position.z) * 0.08;
+
+      mouseX += (targetMouseX - mouseX) * 0.05;
+      mouseY += (targetMouseY - mouseY) * 0.05;
+      if(!reduceMotion){
+        camera.position.x += ((mouseX * 3) - camera.position.x) * 0.03;
+        camera.position.y += ((-mouseY * 2) - camera.position.y) * 0.03;
+      }
+      camera.lookAt(0, 0, camera.position.z - 20);
+
+      cards.forEach(function(card, i){
+        var dist = camera.position.z - card.userData.baseZ;
+        var openRange = 16;
+        var progress = 1 - Math.min(1, Math.max(0, dist / openRange));
+        var closedRot = Math.PI/2 * card.userData.side;
+        var openRot = card.userData.side * 0.12;
+        var idle = reduceMotion ? 0 : Math.sin(t*0.3 + i) * 0.05;
+        card.rotation.y = THREE.MathUtils.lerp(closedRot, openRot, progress) + idle;
+
+        var scale = THREE.MathUtils.lerp(0.72, 1, progress);
+        card.scale.set(scale, scale, scale);
+
+        card.position.x = card.userData.baseX + (reduceMotion ? 0 : Math.sin(t*0.2 + i*1.3) * 0.4);
+        card.position.y = card.userData.baseY + (reduceMotion ? 0 : Math.cos(t*0.25 + i) * 0.4);
+
+        card.material.emissiveIntensity = 0.25 + progress * 0.55;
+      });
+
+      logoMesh.rotation.y += reduceMotion ? 0 : 0.01;
+      logoMesh.position.y = 1.4 + (reduceMotion ? 0 : Math.sin(t*0.6) * 0.18);
+      logoSpot.intensity = 300 + Math.sin(t*0.8) * 40;
+      logoBeam.material.opacity = reduceMotion ? 0.04 : 0.045 + Math.sin(t*0.8)*0.015;
+
+      pink.intensity = 55 + Math.sin(t*0.6)*10;
+      cyan.intensity = 45 + Math.cos(t*0.5)*8;
+
+      composer.render();
+    }
+    animate();
+  }
+</script>
+
+</body>
+</html>
